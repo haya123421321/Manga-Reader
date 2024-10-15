@@ -22,7 +22,7 @@ This project is built using:
 ## Installation
 
 ### Windows
-Visit the Releases section of this repository to download the latest compiled binary for Windows.
+Visit the [Releases](https://github.com/haya123421321/Manga-Reader/releases) section of this repository to download the latest compiled binary for Windows.
 Extract the Files
 
 Once downloaded, extract the contents of the ZIP file to a folder of your choice.
