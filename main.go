@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"path/filepath"
 )
 
 type manga_page_data struct {
@@ -83,7 +84,7 @@ type home_data struct {
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	tmpl,err := template.ParseFiles("home.html")
+	tmpl,err := template.ParseFiles(filepath.Join("template", "home.html"))
 	if err != nil {
 		fmt.Println("Coudlnt parse home.html")
 		fmt.Println(err)
@@ -204,7 +205,7 @@ func load_images(w http.ResponseWriter, title string, chapters []string, manga_p
 	}
 
 
-	tmpl,err := template.ParseFiles("manga_page.html")
+	tmpl,err := template.ParseFiles(filepath.Join("template", "manga_page.html"))
 	if err != nil {
 		fmt.Println("Something went wrong while parsing manga_page.html")
 		fmt.Println(err)
