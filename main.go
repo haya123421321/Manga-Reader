@@ -206,7 +206,7 @@ func load_images(w http.ResponseWriter, title string, chapters []string, manga_p
 
 	tmpl,err := template.ParseFiles("manga_page.html")
 	if err != nil {
-		fmt.Println("Couldnt make template that parses index.html")
+		fmt.Println("Something went wrong while parsing manga_page.html")
 		fmt.Println(err)
 		return
 	}
