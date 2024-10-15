@@ -5,6 +5,9 @@ Welcome to the Manga Viewer web application! This project represents my first de
 ## Overview
 
 The Manga Viewer is a simple yet functional web application that allows users to browse and read manga offline. It features a user-friendly interface where you can navigate through various chapters and read your favorite manga. Additionally, it includes a bookmarking feature that remembers your last read chapter, so you never have to worry about losing your place.
+![Home showcase](https://github.com/user-attachments/assets/d013086a-45cc-4704-8b90-9362c1c62619)
+![Reading showcase](https://github.com/user-attachments/assets/e7ee0313-6bd1-4b81-999c-aa60b9431435)
+
 
 ### Features
 
