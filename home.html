@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+<style>
+body {
+	background-color: #1c1c1c
+}
+
+button {
+	height: 350px;
+	width: 220px;
+}
+
+button:hover {
+    border-color: #ffffff;
+    transform: scale(1.05);
+}
+
+.manga-container-container{
+	color: #ffffff;
+	display: flex;
+}
+.title {
+	text-align: center;
+	margin-top: 5px;
+	font-family: sans-serif;
+	color: #ffffff;
+}
+.manga-container {
+	margin: 5px;
+}
+
+</style>
+</head>
+
+<body>
+	<div class="manga-container-container">
+		{{range .Titles}}
+		<div class="manga-container">
+			<a href="/{{.}}/">
+				<button href=/{{.}}/ style="background: url('/mangas/{{.}}/icon.jpg'); background-size: cover"></button>
+			</a>
+			<p class="title">{{.}}</p>
+		</div>
+		{{end}}
+	</div>
+</body>
+
+</html>

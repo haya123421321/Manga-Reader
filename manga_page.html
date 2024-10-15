@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.Images-container img {
+			display: block;
+			margin: auto;
+			max-width: 100%;
+		}
+		
+		.Informations {
+			margin: 20px;
+			text-align: center;
+			color: #f5f5f5;
+			font-family: sans-serif;
+		}
+
+		.home-button {
+			width: 100px;
+			height: 100px;
+			background: url("/assets/Home.png");
+			background-size: cover;
+			border: 0px;
+			display: block;
+			margin: 0 auto;
+
+		}
+
+		.home-button:hover {
+			background-color: #505050;
+		}
+
+		.Next-and-Previous button {
+			background-color: #505050;
+			font-size: 15px;
+			color: #FFFFFF;
+			width: 70px;
+			height: 20px;
+			margin-top: 10px;
+			border: 0px;
+		}
+
+		.Next-and-Previous a {
+		    text-decoration: none;
+		    color: inherit;
+		    margin: 0;
+		    padding: 0;
+		}
+
+
+		.Next-and-Previous button:hover {
+			background-color: #cccccc;
+		}
+		
+		.Chapter-text {
+			font-size: 25px;
+		}
+
+		body {
+			background-color: #1c1c1c
+		}
+
+	</style>
+</head>
+<body>	
+	<a href=/>
+		<button class="home-button"></button>
+	</a>
+	<div class="Informations">
+	    <b class="Chapter-text">{{.Name}}</b>
+	    <div class="Next-and-Previous">
+		<a href={{.Previous}}>
+		    <button>Previous</button>
+		</a>
+		<a href={{.Next}}>
+		    <button>Next</button>
+		</a>
+	    </div>
+	</div>	
+
+	<div class="Images-container">
+		{{range .Images}}
+		<img src="{{.}}">
+		{{end}}
+	</div>
+</body>
+</html>
