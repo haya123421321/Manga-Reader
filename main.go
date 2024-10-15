@@ -8,6 +8,8 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 )
 
 type manga_page_data struct {
@@ -170,11 +172,26 @@ func load_images(w http.ResponseWriter, title string, chapters []string, manga_p
 	if err != nil {
 		return
 	}
-
+	
 	var files_string []string
-	for _,file := range image_files {
-		files_string = append(files_string, chapter_path + "/" + file.Name())
+	
+	// Custom sorting through image files
+	if len(image_files) > 9 {
+		for i:=0;i<len(image_files);i++ {
+			for _,file := range image_files {
+				if strings.Split(file.Name(), ".")[0] == strconv.Itoa(i) {
+					files_string = append(files_string, chapter_path + "/" + file.Name())
+					break
+				}
+			}
+		}
+	} else {
+		for _,file := range image_files {
+
+			files_string = append(files_string, chapter_path + "/" + file.Name())
+		}
 	}
+
 	var chapter_index int
 	for i,j := range chapters {
 		if j == chapter {
