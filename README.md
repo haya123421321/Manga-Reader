@@ -64,6 +64,7 @@ As this is my first web application, I'm still learning and planning to implemen
 - Improved error handling and user feedback.
 - Enhanced styling for a better user experience.
 - Add support for zip and cbz files
+- Add option for scroll or two page
 
 ## License
 
