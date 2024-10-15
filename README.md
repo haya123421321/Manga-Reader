@@ -14,7 +14,7 @@ The Manga Viewer is a simple yet functional web application that allows users to
 - **Chapter Navigation**: Easily move between previous and next chapters.
 - **Image Display**: View manga pages in a clean layout, optimized for all screen sizes.
 - **Dynamic Content**: The application reads from a local directory structure to serve manga chapters and images.
-- **Cross Platform**: The biggest reason why I went the web app route is so more people can enjoy this experience seamlessly, regardless of their device or operating system
+- **Cross Platform**: The biggest reason why I went the web app route is so more people can enjoy this experience seamlessly, regardless of their device or operating system.
 
 ## Technology Stack
 
