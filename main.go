@@ -27,6 +27,7 @@ type reading_data struct {
 
 var (
 	Titles []string
+	Icons []string
 	handlers_made []string
 ) 
 
@@ -49,6 +50,17 @@ func main() {
 			http.HandleFunc("/" + url_encode_title + "/", func(w http.ResponseWriter, r *http.Request) {
 				manga_page(w, r, directory.Name())
 			})
+
+		Subdir,_ := os.ReadDir("mangas/" + directory.Name())
+		first_chapter,err := os.ReadDir("mangas/" + directory.Name() + "/" +  Subdir[0].Name()) 
+
+		if err != nil {
+			fmt.Println("Something went wrong when trying to read file:")
+			fmt.Println(Subdir[0].Name())
+		}
+		
+		first_image := "/mangas/" + directory.Name() + "/" + Subdir[0].Name() + "/" + first_chapter[0].Name()
+		Icons = append(Icons, first_image)
 		}
 	}
 	
@@ -67,6 +79,7 @@ func main() {
 
 type home_data struct {
 	Titles []string
+	Icons []string
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -79,6 +92,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	d := home_data {
 		Titles: Titles,
+		Icons: Icons,
 	}
 
 	tmpl.Execute(w, d)

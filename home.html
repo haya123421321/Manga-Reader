@@ -20,12 +20,14 @@ button:hover {
 .manga-container-container{
 	color: #ffffff;
 	display: flex;
+	flex-wrap: wrap;
 }
 .title {
 	text-align: center;
 	margin-top: 5px;
 	font-family: sans-serif;
 	color: #ffffff;
+	max-width: 220px;
 }
 .manga-container {
 	margin: 5px;
@@ -36,12 +38,12 @@ button:hover {
 
 <body>
 	<div class="manga-container-container">
-		{{range .Titles}}
+		{{range $Index, $Title := .Titles}}
 		<div class="manga-container">
-			<a href="/{{.}}/">
-				<button href=/{{.}}/ style="background: url('/mangas/{{.}}/icon.jpg'); background-size: cover"></button>
+			<a href="/{{$Title}}/">
+				<button href=/{{$Title}}/ style="background: url('{{index $.Icons $Index}}'); background-size: cover"></button>
 			</a>
-			<p class="title">{{.}}</p>
+			<p class="title">{{$Title}}</p>
 		</div>
 		{{end}}
 	</div>
