@@ -177,17 +177,35 @@ func load_images(w http.ResponseWriter, title string, chapters []string, manga_p
 	
 	// Custom sorting through image files
 	if len(image_files) > 9 {
+		var Not_Numeric_Format_Checker int
 		for i:=0;i<len(image_files);i++ {
+			// check three times if its a numeric format, and if not break
+			if Not_Numeric_Format_Checker == 3 {
+				fmt.Println("Not using numeric formatting, using default sort")
+				break
+			}
+
+			var found_number bool
 			for _,file := range image_files {
 				if strings.Split(file.Name(), ".")[0] == strconv.Itoa(i) {
 					files_string = append(files_string, chapter_path + "/" + file.Name())
+					found_number = true
 					break
-				}
+				} 
+			}
+			if !found_number {
+				Not_Numeric_Format_Checker += 1
+			}
+		}
+		
+		if len(image_files) != len(files_string) {
+			files_string = []string{}
+			for _,file := range image_files {
+				files_string = append(files_string, chapter_path + "/" + file.Name())
 			}
 		}
 	} else {
 		for _,file := range image_files {
-
 			files_string = append(files_string, chapter_path + "/" + file.Name())
 		}
 	}
