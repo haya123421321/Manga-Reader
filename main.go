@@ -216,7 +216,7 @@ func load_images(w http.ResponseWriter, title string, chapters []string, manga_p
 		}
 		
 		if len(image_files) != len(files_string) {
-			fmt.Println("WARNING: Images are not in order")
+			fmt.Println("WARNING: Some images are missing")
 			mp := make(map[string]struct{})
 			for _,file := range files_string {
 				mp[file] = struct{}{}
