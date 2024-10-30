@@ -8,6 +8,7 @@
 			display: block;
 			margin: auto;
 			max-width: 100%;
+			margin-top: 5px;
 		}
 		
 		.Informations {
@@ -62,6 +63,11 @@
 			background-color: #1c1c1c
 		}
 
+		#Listbox {
+			width: 250px;
+			font-size: 17px;
+		}
+
 	</style>
 </head>
 <body>	
@@ -71,6 +77,21 @@
 	<div class="Informations">
 	    <b class="Chapter-text">{{.Name}}</b>
 	    <div class="Next-and-Previous">
+		    <script>
+			    function changepage(){
+				    document.getElementById('Listbox');
+			    }
+		    </script>
+		    <select id="Listbox" onchange="window.location.href=document.getElementById('Listbox').value">
+			    {{range $Index, $Name := .Chapters_names}}
+				    {{if eq $Name $.Name}}
+					    <option selected value="{{index $.Chapters_links $Index}}">{{$Name}}</option>
+				    {{else}}
+					    <option value="{{index $.Chapters_links $Index}}">{{$Name}}</option>
+				    {{end}}
+			    {{end}}
+		    </select>
+		
 		<a href={{.Previous}}>
 		    <button>Previous</button>
 		</a>
@@ -95,6 +116,6 @@
 		    <button>Next</button>
 		</a>
 	    </div>
-	</div>	
+	</div>
 </body>
 </html>

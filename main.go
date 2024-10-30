@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -17,6 +18,8 @@ type manga_page_data struct {
 	Name string
 	Next string
 	Previous string
+	Chapters_names []string
+	Chapters_links []string
 }
 
 type manga_information struct {
@@ -67,16 +70,32 @@ func main() {
 		}
 	}
 	
+	var port string
+
+	for i,arg := range os.Args {
+		if arg == "-p" {
+			port = os.Args[i + 1]
+		}
+	}
+
 	go func() {
-		err = http.ListenAndServe("127.0.0.1:8080", nil)
+		if port != "" {
+		err = http.ListenAndServe("127.0.0.1:" + port, nil)
+		} else {
+			err = http.ListenAndServe("127.0.0.1:8080", nil)
+		}
 		if err != nil {
-			fmt.Println("Failed to open port 8080 on localhost")
-			return
+			panic(err)
 		}
 	}()
-
-	fmt.Println("Listening on port 8080")
-	fmt.Println("Go to http://127.0.0.1:8080 to access the viewer.")
+	
+	if port != "" {
+		fmt.Println("Listening on port " + port)
+		fmt.Println("Go to http://127.0.0.1:" + port + " to access the viewer.")
+	}else {
+		fmt.Println("Listening on port 8080")
+		fmt.Println("Go to http://127.0.0.1:8080 to access the viewer.")
+	}
 	for {}
 }
 
@@ -182,7 +201,7 @@ func load_images(w http.ResponseWriter, title string, chapters []string, manga_p
 
 		for _,file := range image_files {
 			if Not_Numeric_Format_Checker == 3 {
-				fmt.Println("Not using numeric formatting, using default sort")
+				fmt.Println("Images not using numeric formatting, using default sort")
 				files_string = []string{}
 				for _,file := range image_files {
 					files_string = append(files_string, chapter_path + "/" + file.Name())
@@ -190,14 +209,18 @@ func load_images(w http.ResponseWriter, title string, chapters []string, manga_p
 				break
 			} else if Is_Numeric_Format_Checker == 3 {
 				files_string = []string{}
-				for i:=0;i<len(image_files);i++{
-					for _,file := range image_files {
-						if strings.Split(file.Name(), ".")[0] == strconv.Itoa(i) {
-							files_string = append(files_string, chapter_path + "/" + file.Name())
-							break
-						} 
-					}
+				for _,i := range image_files {
+					files_string = append(files_string, chapter_path + "/" + i.Name())
 				}
+
+				sort.Slice(files_string, func(i, j int) bool {
+					split_i := strings.Split(files_string[i], "/")[len(strings.Split(files_string[i], "/")) - 1]
+					split_j := strings.Split(files_string[j], "/")[len(strings.Split(files_string[j], "/")) - 1]
+					i,err = strconv.Atoi(strings.Split(split_i, ".")[0])
+					j,err =  strconv.Atoi(strings.Split(split_j, ".")[0])
+ 
+					return i < j
+				})
 				break
 			}
 
@@ -259,11 +282,18 @@ func load_images(w http.ResponseWriter, title string, chapters []string, manga_p
 		next = chapters[chapter_index]
 	}
 
+	var chapters_links []string
+	for _,i := range chapters {
+		chapters_links = append(chapters_links, "/" + title + "/" + i)
+	}
+
 	d := manga_page_data{
 		Images: files_string,
 		Name: chapter,
 		Next: "/" + title + "/" + next,
 		Previous: "/" + title + "/" + previous,
+		Chapters_names: chapters,
+		Chapters_links: chapters_links,
 	}
 
 
