@@ -46,7 +46,7 @@ func main() {
 
 	directoryss,err := os.ReadDir("mangas")
 	if err != nil {
-		fmt.Println("couldnt read mangas directory")
+		os.Mkdir("mangas", 0700)
 	}
 
 	for _,directory := range directoryss {
