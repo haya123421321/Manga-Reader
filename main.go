@@ -78,25 +78,15 @@ func main() {
 		}
 	}
 
-	go func() {
-		if port != "" {
-		err = http.ListenAndServe("127.0.0.1:" + port, nil)
-		} else {
-			err = http.ListenAndServe("127.0.0.1:8080", nil)
-		}
-		if err != nil {
-			panic(err)
-		}
-	}()
-	
 	if port != "" {
 		fmt.Println("Listening on port " + port)
 		fmt.Println("Go to http://127.0.0.1:" + port + " to access the viewer.")
-	}else {
+		err = http.ListenAndServe("0.0.0.0:" + port, nil)
+	} else {
 		fmt.Println("Listening on port 8080")
 		fmt.Println("Go to http://127.0.0.1:8080 to access the viewer.")
+		err = http.ListenAndServe("0.0.0.0:8080", nil)
 	}
-	for {}
 }
 
 type home_data struct {
